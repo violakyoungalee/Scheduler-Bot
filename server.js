@@ -2,12 +2,12 @@ var express = require('express');
 var request = require('request');
 var bodyParser = require('body-parser');
 var app = express();
-import { RTMClient, WebClient } from '@slack/client';
-
+var RTMClient = require('@slack/client');
+var WebClient = require('@slack/client')
 // const sessionId = 'demi-chat-1';
-const dialogflow = require('dialogflow');
-const sessionClient = new dialogflow.SessionsClient();
-const sessionPath = sessionClient.sessionPath(process.env.DIALOGFLOW_PROJECT_ID, sessionId);
+// const dialogflow = require('dialogflow');
+// const sessionClient = new dialogflow.SessionsClient();
+// const sessionPath = sessionClient.sessionPath(process.env.DIALOGFLOW_PROJECT_ID, sessionId);
 
 const token = process.env.SLACK_TOKEN;
 const web = new WebClient(token);
