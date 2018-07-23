@@ -7,12 +7,12 @@ A slackbot that can schedule meetings for you and your team.
 Teams who use Slack and actively schedule meetings on Google Calendar.
 
 Examples: 
-Engineering Teams
-Sales Teams
-Marketing Teams
-Agencies 
-Consulting Firms 
-Middle Management across the board. 
+- Engineering Teams
+- Sales Teams
+- Marketing Teams
+- Agencies 
+- Consulting Firms 
+- Middle Management across the board. 
 
 ### Why are we building this now? 
 
