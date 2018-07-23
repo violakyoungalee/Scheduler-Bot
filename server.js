@@ -4,7 +4,7 @@ var bodyParser = require('body-parser');
 var app = express();
 import { RTMClient, WebClient } from '@slack/client';
 
-// const sessionId = 'demi-chat-1';
+const sessionId = 'demi-chat-1';
 const dialogflow = require('dialogflow');
 const sessionClient = new dialogflow.SessionsClient();
 const sessionPath = sessionClient.sessionPath(process.env.DIALOGFLOW_PROJECT_ID, sessionId);
