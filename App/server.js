@@ -3,11 +3,12 @@ var request = require('request');
 var bodyParser = require('body-parser');
 var app = express();
 import { RTMClient, WebClient } from '@slack/client';
-
-const sessionId = 'demi-chat-1';
 const dialogflow = require('dialogflow');
-const sessionClient = new dialogflow.SessionsClient();
-const sessionPath = sessionClient.sessionPath(process.env.DIALOGFLOW_PROJECT_ID, sessionId);
+
+// const sessionId = 'demi-chat-1';
+// const dialogflow = require('dialogflow');
+// const sessionClient = new dialogflow.SessionsClient();
+// const sessionPath = sessionClient.sessionPath(process.env.DIALOGFLOW_PROJECT_ID, sessionId);
 
 const token = process.env.SLACK_TOKEN;
 const web = new WebClient(token);
@@ -18,6 +19,7 @@ rtm.start();
 rtm.on('message', function(event) {
   console.log(event);
   if (event.bot_id === 'BBVFS88A1') return;
+  dialogflowTest();
   web.chat.postMessage({
         channel: event.channel,
         as_user: true,
@@ -77,3 +79,38 @@ const port = process.env.PORT || 1337;
 app.listen(port, () => {
   console.log(`Server listening on port ${port}!`);
 });
+
+const projectId = 'scheduleboter';
+const sessionId = 'scheduleSession';
+const query = 'Remind me to do laundry tomorrow';
+const languageCode = 'en-US';
+const sessionClient = new dialogflow.SessionsClient();
+const sessionPath = sessionClient.sessionPath(projectId, sessionId);
+
+var dialogflowTest = function() {
+  const request = {
+    session: sessionPath,
+    queryInput: {
+      text: {
+        text: query,
+        languageCode: languageCode,
+      },
+    },
+  };
+  sessionClient
+    .detectIntent(request)
+    .then(responses => {
+      console.log('Detected intent');
+      const result = responses[0].queryResult;
+      console.log(`  Query: ${result.queryText}`);
+      console.log(`  Response: ${result.fulfillmentText}`);
+      if (result.intent) {
+        console.log(`  Intent: ${result.intent.displayName}`);
+      } else {
+        console.log(`  No intent matched.`);
+      }
+    })
+    .catch(err => {
+      console.error('ERROR:', err);
+    });
+}
